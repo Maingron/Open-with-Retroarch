@@ -81,26 +81,32 @@ goto %rom-ext%
     :.psp
         set "emu-system=psp"
         set "emu-core=ppsspp"
+        goto run
 
     :.vita
         set "emu-system=ps-vita"
         set "emu-core="
+        goto run
 
     :.psx
         set "emu-system=psx"
         set "emu-core="
+        goto run
 
     :.ps2
         set "emu-system=ps2"
         set "emu-core="
+        goto run
 
     :.ps3
         set "emu-system=ps3"
         set "emu-core="
+        goto run
 
     :.ps4
         set "emu-system=ps4"
         set "emu-core="
+        goto run
 
 
 :microsoft_consoles
@@ -108,8 +114,7 @@ goto %rom-ext%
     :.xex
         set "emu-system=xbox"
         set "emu-core="
-
-
+        goto run
 
 
 
