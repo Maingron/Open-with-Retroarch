@@ -1,8 +1,15 @@
 @echo off
+@REM Author: Maingron
+@REM Description: Open a game with Retroarch
+@REM Website: https://maingron.com
+@REM Dependencies: Retroarch (https://retroarch.com)
+
+
 set "retroarch-exe=G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe"
 set "rom-path=%~dp1"
 set "rom-name=%~nx1"
 set "rom-ext=%~x1"
+title Open With Retroarch - %rom-name%
 
 IF NOT DEFINED rom-ext (goto error-no_input_ext)
 goto %rom-ext%
