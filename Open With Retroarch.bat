@@ -1,81 +1,140 @@
+@echo off
 set "retroarch-exe=G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe"
 set "rom-path=%~dp1"
 set "rom-name=%~nx1"
 set "rom-ext=%~x1"
 
-set "nes=mesen"
+IF NOT DEFINED rom-ext (goto error-no_input_ext)
+goto %rom-ext%
 
-set core-nes = "mesen"
-set core-snes = "snes9x"
-set core-gb = "gambatte"
-set core-gba = "mgba"
-set core-gbc = "gambatte"
+@REM https://teksyndicate.com/the-best-retroarch-cores-2022-desktop-performance-options-for-raspberry-pi-etc/
+
+:nintendo_consoles
+
+    :.nes
+        set "emu-system=nes"
+        set "emu-core=mesen"
+        goto run
+
+    :.smc
+    :.sfc
+        set "emu-system=snes"
+        set "emu-core=snes9x"
+        goto run
+
+    :.n64
+    :.z64
+    :.v64
+        set "emu-system=n64"
+        set "emu-core=parallel"
+        goto run
+
+    :.gc
+    :.gcz
+        set "emu-system=gc"
+        set "emu-core=dolphin"
+        goto run
+
+    :.wii
+    :.wad
+        set "emu-system=wii"
+        set "emu-core=dolphin"
+        goto run
+
+    :.wiiu
+        set "emu-system=wiiu"
+        set "emu-core=dolphin"
+        goto run
+
+    :.gb
+        set "emu-system=gb"
+        set "emu-core=gambatte"
+        goto run
+
+    :.gbc
+        set "emu-system=gbc"
+        set "emu-core=gambatte"
+        goto run
+
+    :.gba
+        set "emu-system=gba"
+        set "emu-core=mgba"
+        goto run
+
+    :.nds
+        set "emu-system=nds"
+        set "emu-core=melonDS"
+        goto run
+
+    :.3ds
+    :.3dsx
+    :.cia
+        set "emu-system=3ds"
+        set "emu-core=citra"
+        goto run
 
 
-:file_associations
-    @REM Nintendo
-    if(%rom-ext% in (".nes")) set emu-system = "nes"
-    if(%rom-ext% in (".sfc", ".smc")) set emu-system = "snes"
-    if(%rom-ext% in (".n64", ".z64", "v64")) set emu-system = "n64"
-    if(%rom-ext% in (".gc", ".gcz")) set emu-system = "gc"
-    if(%rom-ext% in (".wii", ".wad")) set emu-system = "wii"
-    if(%rom-ext% in (".wiiu", ".wud")) set emu-system = "wiiu"
-    if(%rom-ext% in (".gb")) set emu-system = "gb"
-    if(%rom-ext% in (".gbc")) set emu-system = "gbc"
-    if(%rom-ext% in (".gba")) set emu-system = "gba"
-    if(%rom-ext% in (".nds")) set emu-system = "nds"
-    if(%rom-ext% in (".3ds", ".3dsx", ".cci", ".3dz", ".cia")) set emu-system = "3ds"
+:sony_consoles
 
-    @REM Sony
-    if(%rom-ext% in (".psp")) set emu-system = "psp"
-    if(%rom-ext% in (".vita")) set emu-system = "ps-vita"
-    if(%rom-ext% in (".psx")) set emu-system = "psx"
-    if(%rom-ext% in (".ps2")) set emu-system = "ps2"
-    if(%rom-ext% in (".ps3")) set emu-system = "ps3"
-    if(%rom-ext% in (".ps4")) set emu-system = "ps4"
+    :.psp
+        set "emu-system=psp"
+        set "emu-core=ppsspp"
 
-    @REM Microsoft
-    if(%rom-ext% in (".xex")) set emu-system = "xbox"
+    :.vita
+        set "emu-system=ps-vita"
+        set "emu-core="
+
+    :.psx
+        set "emu-system=psx"
+        set "emu-core="
+
+    :.ps2
+        set "emu-system=ps2"
+        set "emu-core="
+
+    :.ps3
+        set "emu-system=ps3"
+        set "emu-core="
+
+    :.ps4
+        set "emu-system=ps4"
+        set "emu-core="
 
 
-:core_selection
-    if(%emu-system% == "nes") set core = %core-nes%
-    if(%emu-system% == "snes") set core = %core-snes%
-    if(%emu-system% == "gb") set core = %core-gb%
-    if(%emu-system% == "gba") set core = %core-gba%
-    if(%emu-system% == "gbc") set core = %core-gbc%
+:microsoft_consoles
 
-    if not defined core (
-        echo No core found for %rom-ext%
-        exit /b 1
-    )
+    :.xex
+        set "emu-system=xbox"
+        set "emu-core="
 
-    echo %core%
-switch(%emu-system%) {
-case "nes"
-    set emulator = "retroarch" && set core = "mesen"
-    break
-case "snes"
-    set emulator = "retroarch" && set core = "snes9x"
-    break
-case "n64"
-    set emulator = "retroarch" && set core = "mupen64plus"
-    break
-}
-goto :run
+
+
 
 
 :run
-    switch(%emulator%)
-
-    case "retroarch"
-        %retroarch-exe% -L %core% %1
-
+    %retroarch-exe% -L %emu-core% %1
     exit
 
-    default
-        echo "No emulator found for %rom-ext%"
-        exit
 
-    %retroarch-exe% -L %retroarch-core% %1
-    exit
+:error_stuff
+
+    :error-no_fileext
+        echo File extension %rom-ext% not defined.
+        goto list-variables
+        goto eof
+
+    :error-no_input_ext
+        echo No input file or input file extension not passed to script.
+        goto list-variables
+        goto eof
+
+    :list-variables
+        echo rom-path = %rom-path%
+        echo rom-name = %rom-name%
+        echo rom-ext = %rom-ext%
+        echo emu-system = %emu-system%
+        echo emu-core = %emu-core%
+        pause
+
+:eof
+exit
