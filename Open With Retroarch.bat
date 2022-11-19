@@ -26,7 +26,8 @@ goto %rom-ext%
     :.z64
     :.v64
         set "emu-system=n64"
-        set "emu-core=parallel"
+        set "emu-core=mupen64plus_next"
+        @REM set "emu-core=parallel"
         goto run
 
     :.gc
@@ -63,7 +64,8 @@ goto %rom-ext%
 
     :.nds
         set "emu-system=nds"
-        set "emu-core=melonDS"
+        set "emu-core=desmume"
+        @REM set "emu-core=melonDS"
         goto run
 
     :.3ds
@@ -112,7 +114,7 @@ goto %rom-ext%
 
 
 :run
-    %retroarch-exe% -L %emu-core% %1
+    start %retroarch-exe% -L %emu-core% %1
     exit
 
 
