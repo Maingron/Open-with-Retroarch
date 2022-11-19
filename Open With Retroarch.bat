@@ -119,8 +119,18 @@ goto %rom-ext%
 
 
 :run
-    start %retroarch-exe% -L %emu-core% %1
+    :run-checks
+        goto check-core_set
+
+    :run-run
+        start %retroarch-exe% -L %emu-core% %1
     exit
+
+:check_stuff
+    :check-core_set
+        IF NOT DEFINED emu-core (goto error-no_core_defined)
+
+    goto run-run
 
 
 :error_stuff
@@ -135,12 +145,25 @@ goto %rom-ext%
         goto list-variables
         goto eof
 
+    :error-no_core_defined
+        echo No core defined for %emu-system%. Please edit the script and add a core for this system.
+        echo You can CTRL+F and search for ":%rom-ext%" to find the section you need to edit.
+        echo.
+        echo By the way: If you know of a core that works for this system, please submit a pull request on GitHub.
+        goto list-variables
+        goto eof
+
     :list-variables
+        echo.
+        echo --------------------
+        echo Variables in use:
+        echo retroarch-exe = %retroarch-exe%
         echo rom-path = %rom-path%
         echo rom-name = %rom-name%
         echo rom-ext = %rom-ext%
         echo emu-system = %emu-system%
         echo emu-core = %emu-core%
+        echo --------------------
         pause
 
 :eof
