@@ -208,6 +208,8 @@ goto init
 
 :microsoft_consoles
     :.xex
+    :.xbe
+    :.xbox
         set "emu-system=xbox"
         set "emu-core="
         goto run
