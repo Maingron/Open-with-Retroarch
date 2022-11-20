@@ -4,17 +4,13 @@
 @REM Website: https://maingron.com
 @REM Dependencies: Retroarch (https://retroarch.com)
 
+@REM Set the path to Retroarch; Some common paths will also be checked, however.
+set "retroarch-exe=C:\Program Files\RetroArch\retroarch.exe"
 
-set "retroarch-exe=G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe"
-set "rom-path=%~dp1"
-set "rom-name=%~nx1"
-set "rom-ext=%~x1"
-title Open With Retroarch - %rom-name%
 
-IF NOT DEFINED rom-ext (goto error-no_input_ext)
-goto %rom-ext%
+goto init
+:init_done
 
-@REM https://teksyndicate.com/the-best-retroarch-cores-2022-desktop-performance-options-for-raspberry-pi-etc/
 
 :nintendo_consoles
 
@@ -218,6 +214,11 @@ goto %rom-ext%
 
 
 
+
+
+
+
+
 :run
     :run-checks
         goto check-core_set
@@ -226,11 +227,68 @@ goto %rom-ext%
         start %retroarch-exe% -L %emu-core% %1
     exit
 
+
+
+:init
+    set "rom-path=%~dp1"
+    set "rom-name=%~nx1"
+    set "rom-ext=%~x1"
+
+    title Open With Retroarch - %rom-name%
+
+    goto scan_for_retroarch
+    :retroarch_scan_done
+
+    IF NOT DEFINED rom-ext (goto error-no_input_ext)
+    goto %rom-ext%
+
+    @REM Notes and useful links regarding this project:
+    @REM https://teksyndicate.com/the-best-retroarch-cores-2022-desktop-performance-options-for-raspberry-pi-etc/
+
+    goto error-nono_fileext
+    exit
+
+
+
+
+:path_finding_stuff
+    :scan_for_retroarch
+        if exist "%retroarch-exe%" (
+            goto retroarch_scan_done
+        ) else (
+            set "retroarch-exe="
+        )
+        if exist "retroarch.lnk" (
+            set "retroarch-exe=retroarch.lnk"
+        ) else if exist "retroarch.exe" (
+            set "retroarch-exe=retroarch.exe"
+        ) else if exist "retroarch\retroarch.exe" (
+            set "retroarch-exe=retroarch\retroarch.exe"
+        ) else if exist "%PROGRAMFILES%\RetroArch\retroarch.exe" (
+            set "retroarch-exe=%PROGRAMFILES%\RetroArch\retroarch.exe"
+        ) else if exist "%PROGRAMFILES(X86)%\RetroArch\retroarch.exe" (
+            set "retroarch-exe=%PROGRAMFILES(X86)%\RetroArch\retroarch.exe"
+        ) else if exist "%PROGRAMFILES(X86)%\Steam\steamapps\common\RetroArch\retroarch.exe" (
+            set "retroarch-exe=%PROGRAMFILES(X86)%\Steam\steamapps\common\RetroArch\retroarch.exe"
+        ) else if exist "%appdata%\retroarch\retroarch.exe" (
+            set "retroarch-exe=%appdata%\retroarch\retroarch.exe"
+        ) else if exist "G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe" (
+            set "retroarch-exe=G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe"
+        )
+
+        goto check-retroarch-available
+
+
+
 :check_stuff
     :check-core_set
         IF NOT DEFINED emu-core (goto error-no_core_defined)
+        goto run-run
 
-    goto run-run
+    :check-retroarch-available
+        IF NOT DEFINED retroarch-exe (goto error-no_retroarch_found)
+        goto retroarch_scan_done
+
 
 
 :error_stuff
@@ -250,6 +308,14 @@ goto %rom-ext%
         echo You can CTRL+F and search for ":%rom-ext%" to find the section you need to edit.
         echo.
         echo By the way: If you know of a core that works for this system, please submit a pull request on GitHub.
+        goto list-variables
+        goto eof
+
+    :error-no_retroarch_found
+        echo No RetroArch executable found.
+        echo Please make sure RetroArch is installed and that the script can find it.
+        echo You can also create a shortcut to RetroArch.exe and name it "retroarch.lnk" and place it in the same folder as this script.
+        echo If you have RetroArch installed in a non-standard location, you can edit the script and add the path to the RetroArch executable.
         goto list-variables
         goto eof
 
