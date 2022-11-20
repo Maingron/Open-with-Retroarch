@@ -6,7 +6,7 @@
 
 @REM Set the path to Retroarch; Some common paths will also be checked, however.
 set "retroarch-exe=C:\Program Files\RetroArch\retroarch.exe"
-
+set "additional-parameters="
 
 goto init
 :init_done
@@ -224,7 +224,9 @@ goto init
         goto check-core_set
 
     :run-run
-        start %retroarch-exe% -L %emu-core% %1
+        start %retroarch-exe% -L %emu-core% %1 %additional-parameters%
+        echo Started %rom-name% with %emu-core%.
+        ping localhost -n 3 -w 500 > nul
     exit
 
 
