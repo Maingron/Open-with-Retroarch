@@ -101,6 +101,10 @@ goto init
         goto run
 
     :.psx
+    :.ps1
+    :.ecm
+    :.cue
+    :.ccd
         set "emu-system=psx"
         set "emu-core=pcsx_rearmed"
         goto run
