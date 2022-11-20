@@ -249,7 +249,7 @@ goto init
     @REM Notes and useful links regarding this project:
     @REM https://teksyndicate.com/the-best-retroarch-cores-2022-desktop-performance-options-for-raspberry-pi-etc/
 
-    goto error-nono_fileext
+    goto error-no_fileext
     exit
 
 
