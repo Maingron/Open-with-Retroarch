@@ -1,5 +1,6 @@
 @echo off
 @REM Author: Maingron
+@REM Version: 0.2
 @REM Description: Open a game with Retroarch
 @REM Website: https://maingron.com
 @REM Dependencies: Retroarch (https://retroarch.com)
