@@ -1,6 +1,6 @@
 @echo off
 @REM Author: Maingron
-@REM Version: 0.2
+@REM Version: 0.3-dev
 @REM Description: Open a game with Retroarch
 @REM Website: https://maingron.com
 @REM Dependencies: Retroarch (https://retroarch.com)
@@ -14,7 +14,6 @@ goto init
 
 
 :nintendo_consoles
-
     :.nes
     :.fds
     :.fam
@@ -89,7 +88,6 @@ goto init
 
 
 :sony_consoles
-
     :.psp
         set "emu-system=psp"
         set "emu-core=ppsspp"
@@ -159,7 +157,6 @@ goto init
 
 
 :atari_consoles
-
     :.a26
         set "emu-system=atari-2600"
         set "emu-core=stella"
@@ -188,7 +185,6 @@ goto init
 
 
 :commodore_consoles
-
     :.hdf
         set "emu-system=commodore-amiga"
         set "emu-core=puae"
@@ -211,7 +207,6 @@ goto init
 
 
 :microsoft_consoles
-
     :.xex
         set "emu-system=xbox"
         set "emu-core="
