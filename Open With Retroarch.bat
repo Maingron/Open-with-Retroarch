@@ -15,6 +15,9 @@ goto init
 
 :nintendo_consoles
     :.nes
+    :.nez
+    :.unf
+    :.unif
     :.fds
     :.fam
         set "emu-system=nes"
@@ -23,7 +26,6 @@ goto init
 
     :.smc
     :.sfc
-    :.srm
         set "emu-system=snes"
         set "emu-core=snes9x"
         goto run
@@ -38,8 +40,9 @@ goto init
         goto run
 
     :.gc
-    :.gcz
     :.gcm
+    :.gcz
+    :.rvz
         set "emu-system=gc"
         set "emu-core=dolphin"
         goto run
@@ -48,6 +51,7 @@ goto init
     :.wad
     :.wbfs
     :.wdf
+    :.dol
         set "emu-system=wii"
         set "emu-core=dolphin"
         goto run
@@ -55,6 +59,12 @@ goto init
     :.wiiu
         set "emu-system=wiiu"
         set "emu-core=dolphin"
+        goto run
+
+    :.vb
+    :.vboy
+        set "emu-system=vb"
+        set "emu-core=beetle_vb"
         goto run
 
     :.gb
@@ -68,14 +78,22 @@ goto init
         goto run
 
     :.gba
+    :.agb
         set "emu-system=gba"
         set "emu-core=mgba"
         goto run
 
     :.nds
+    :.srl
+    :.ids
         set "emu-system=nds"
         set "emu-core=desmume"
         @REM set "emu-core=melonDS"
+        goto run
+
+    :.dsi
+        set "emu-system=dsi"
+        set "emu-core=desmume"
         goto run
 
     :.3ds
@@ -86,6 +104,12 @@ goto init
         set "emu-core=citra"
         goto run
 
+    :.nsp
+    :.xci
+        set "emu-system=switch"
+        set "emu-core=yuzu"
+        goto run
+
 
 :sony_consoles
     :.psp
@@ -94,6 +118,7 @@ goto init
         goto run
 
     :.vita
+    :.vpk
         set "emu-system=ps-vita"
         set "emu-core="
         goto run
@@ -103,6 +128,8 @@ goto init
     :.ecm
     :.cue
     :.ccd
+    :.sbl
+    :.sub
         set "emu-system=psx"
         set "emu-core=pcsx_rearmed"
         goto run
@@ -131,6 +158,7 @@ goto init
     
     :.smd
     :.gen
+    :.md
         set "emu-system=sega-genesis"
         set "emu-core=genesis_plus_gx"
         goto run
@@ -153,6 +181,12 @@ goto init
     :.neogeo
         set "emu-system=neogeo"
         set "emu-core=neocd"
+        goto run
+
+    :.ngp
+    :.ngc
+        set "emu-system=neogeo-pocket"
+        set "emu-core=neopop"
         goto run
 
 
@@ -213,6 +247,55 @@ goto init
         set "emu-system=xbox"
         set "emu-core="
         goto run
+
+:other_consoles
+    :.mgw
+        set "emu-system=msx"
+        set "emu-core=blueMSX"
+        goto run
+
+    :.pce
+    :.pcecd
+        set "emu-system=pc-engine"
+        set "emu-core=mednafen_pce_fast"
+        goto run
+
+    :.sgx
+        set "emu-system=pc-engine-supergrafx"
+        set "emu-core=mednafen_pce_fast"
+        goto run
+
+    :.wswan
+    :.wswanc
+    :.ws
+    :.wsc
+        set "emu-system=wonderswan"
+        set "emu-core=mednafen_wswan"
+        goto run
+
+    :.zxs
+    :.tzx
+        set "emu-system=zxspectrum"
+        set "emu-core=fuse"
+        goto run
+
+    :.apk
+        set "emu-system=android"
+        set "emu-core="
+        goto run
+
+    :.ipa
+        set "emu-system=ios"
+        set "emu-core="
+        goto run
+
+    :.d64
+        set "emu-system=apple-ii"
+        set "emu-core="
+        goto run
+
+
+
 
 
 
