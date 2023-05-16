@@ -1,7 +1,7 @@
 @echo off
 @REM Author: Maingron
 @REM Version: 0.3-dev
-@REM Description: Open a game with Retroarch
+@REM Description: Open a game with Retroarch | GitHub: https://github.com/Maingron/Open-with-Retroarch
 @REM Website: https://maingron.com
 @REM Dependencies: Retroarch (https://retroarch.com)
 
@@ -370,8 +370,23 @@ goto init
         set "emu-core="
         goto run
 
+    :.p8
+        set "emu-system=pico-8"
+        set "emu-core=retro8"
+        goto run
+    
+    :.tic
+    :.tic80
+    :.t80
+        set "emu-system=tic-80"
+        set "emu-core=tic80"
+        goto run
 
-
+    :.sv
+    :.svi
+        set "emu-system=supervision"
+        set "emu-core=potator"
+        goto run
 
 
 
