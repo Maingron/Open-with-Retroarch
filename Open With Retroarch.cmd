@@ -48,6 +48,7 @@ goto init
         goto run
 
     :.wii
+    :.wia
     :.wad
     :.wbfs
     :.wdf
