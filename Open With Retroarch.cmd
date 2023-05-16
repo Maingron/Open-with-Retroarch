@@ -58,6 +58,8 @@ goto init
         goto run
 
     :.wiiu
+    :.wud
+    :.rpx
         set "emu-system=wiiu"
         set "emu-core=dolphin"
         goto run
@@ -93,6 +95,7 @@ goto init
         goto run
 
     :.dsi
+    :.dsiware
         set "emu-system=dsi"
         set "emu-core=desmume"
         goto run
@@ -105,8 +108,11 @@ goto init
         set "emu-core=citra"
         goto run
 
+    :.nca
     :.nsp
     :.xci
+    :.nro
+    :.nso
         set "emu-system=switch"
         set "emu-core=yuzu"
         goto run
@@ -114,6 +120,7 @@ goto init
 
 :sony_consoles
     :.psp
+    :.psp.iso
         set "emu-system=psp"
         set "emu-core=ppsspp"
         goto run
@@ -126,6 +133,7 @@ goto init
 
     :.psx
     :.ps1
+    :.ps1.iso
     :.ecm
     :.cue
     :.ccd
@@ -136,17 +144,26 @@ goto init
         goto run
 
     :.ps2
+    :.ps2.iso
         set "emu-system=ps2"
         set "emu-core=pcsx2"
         goto run
 
     :.ps3
+    :.ps3.iso
         set "emu-system=ps3"
         set "emu-core="
         goto run
 
     :.ps4
+    :.ps4.iso
         set "emu-system=ps4"
+        set "emu-core="
+        goto run
+
+    :.ps5
+    :.ps5.iso
+        set "emu-system=ps5"
         set "emu-core="
         goto run
 
@@ -174,12 +191,14 @@ goto init
         set "emu-core=genesis_plus_gx"
         goto run
 
-    :gdi
+    :.gdi
+    :.cdi
         set "emu-system=sega-dreamcast"
         set "emu-core=genesis_plus_gx"
         goto run
 
     :.neogeo
+    :.ng
         set "emu-system=neogeo"
         set "emu-core=neocd"
         goto run
@@ -240,6 +259,11 @@ goto init
         set "emu-core="
         goto run
 
+    :.pet
+        set "emu-system=commodore-pet"
+        set "emu-core="
+        goto run
+
 
 :microsoft_consoles
     :.xex
@@ -248,6 +272,57 @@ goto init
         set "emu-system=xbox"
         set "emu-core="
         goto run
+
+    :.x360
+    :.xbla
+    :.xbl
+    :.xbox360
+        set "emu-system=xbox360"
+        set "emu-core="
+        goto run
+
+    :.xone
+    :.xboxone
+    :.xb1
+    :.xbo
+    :.xbone
+        set "emu-system=xboxone"
+        set "emu-core="
+        goto run
+
+    :.xbsx
+    :.xboxseriesx
+    :.xboxsx
+    :.xbs
+    :.xboxseries
+    :.xboxss
+        set "emu-system=xboxseriesx"
+        set "emu-core="
+        goto run
+
+    :.com
+    :.dos
+    :.exe
+    :.msdos
+    :.win
+        set "emu-system=pc"
+        set "emu-core=dosbox"
+        goto run
+
+    :.win3x
+    :.win31
+    :.win95
+    :.win98
+    :.winme
+    :.winnt
+    :.win2000
+    :.winxp
+    :.i386
+    :.ibm
+        set "emu-system=pc"
+        set "emu-core=pcem"
+        goto run
+
 
 :other_consoles
     :.mgw
