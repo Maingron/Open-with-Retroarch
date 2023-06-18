@@ -369,6 +369,7 @@ goto init
         goto run
 
     :.p8
+    :.pico8
         set "emu-system=pico-8"
         set "emu-core=retro8"
         goto run
