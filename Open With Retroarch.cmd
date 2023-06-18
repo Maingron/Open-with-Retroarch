@@ -245,8 +245,11 @@ goto init
         goto run
 
     :.c64
+    :.d64
+    :.t64
+    :.prg
         set "emu-system=commodore-64"
-        set "emu-core="
+        set "emu-core=vice_x64"
         goto run
 
     :.c128
@@ -362,11 +365,6 @@ goto init
 
     :.ipa
         set "emu-system=ios"
-        set "emu-core="
-        goto run
-
-    :.d64
-        set "emu-system=apple-ii"
         set "emu-core="
         goto run
 
