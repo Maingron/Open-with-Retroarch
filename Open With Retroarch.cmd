@@ -67,7 +67,7 @@ goto init
     :.vb
     :.vboy
         set "emu-system=vb"
-        set "emu-core=beetle_vb"
+        set "emu-core=mednafen_vb"
         goto run
 
     :.gb
