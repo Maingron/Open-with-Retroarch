@@ -9,6 +9,9 @@ Development started in November 2022.
 4. Open a ROM and select the script as the default program
 5. Enjoy
 
+## Keys
+Here is a list of keys that can be used if you want to add the script to your itch library: [List of keys](Itch-Keys.txt)
+
 ## Compatibility
 Tested on Windows 11 with RetroArch 1.13.0 from Steam.
 
