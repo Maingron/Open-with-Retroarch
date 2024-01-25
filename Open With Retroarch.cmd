@@ -1,6 +1,6 @@
 @echo off
 @REM Author: Maingron
-@REM Version: 0.3
+@REM Version: 0.4
 @REM Description: Open a game with Retroarch | GitHub: https://github.com/Maingron/Open-with-Retroarch
 @REM Website: https://maingron.com
 @REM Dependencies: Retroarch (https://retroarch.com)
@@ -399,7 +399,7 @@ goto init
         goto check-core_set
 
     :run-run
-        start %retroarch-exe% -L %emu-core% %1 %additional-parameters%
+        start "" "%retroarch-exe%" -L %emu-core% %1 %additional-parameters%
         echo Started %rom-name% with %emu-core%.
         ping localhost -n 3 -w 500 > nul
     exit
