@@ -464,6 +464,8 @@ goto init
     :.xex
     :.xbe
     :.xbox
+    :.xiso
+    :.xiso.iso
         set "emu-system=xbox"
         set emu-core="xqemu" "xemu" "cxbx_reloaded" "xenia"
 
