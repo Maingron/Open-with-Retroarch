@@ -88,6 +88,7 @@ goto init
     :.wiiu
     :.wud
     :.rpx
+    :.wux
         set "emu-system=wiiu"
         set emu-core="cemu" "cemu_1_15_20" "dolphin" "dolphin-emu"
 
