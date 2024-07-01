@@ -6,11 +6,11 @@
 @REM Dependencies: Retroarch (https://retroarch.com)
 
 @REM Set the path to Retroarch; Some common paths will also be checked, however.
+
 @REM CONFIGURATION:
 set "retroarch-exe=C:\Program Files\RetroArch\retroarch.exe"
 set "additional-parameters="
 call :echoheader
-
 
 goto init
 :init_done
@@ -682,16 +682,17 @@ goto init
     set "rom-ext=%~x1"
     title Open With Retroarch - %rom-name%
 
-    goto scan_for_retroarch
+    call :getRetroarchExe
+    set "retroarch-exe=%errorlevel%"
+
+    goto check-retroarch-available
         :retroarch_scan_done
 
-    set "callback=init__callback1"
-    goto get_retroarch_dir
-        :init__callback1
+    call :getRetroarchDirFromExe %retroarch-exe%
+    set "retroarch-dir=%errorlevel%"
 
-    set "callback=init__callback2"
-    goto get_retroarch_cores_dir
-        :init__callback2
+    call :getRetroarchCoreDirFromDir %retroarch-dir%
+    set "retroarch-cores-dir=%errorlevel%"
 
     IF NOT DEFINED rom-ext (goto error-no_input_ext)
     goto %rom-ext%
@@ -703,45 +704,7 @@ goto init
     exit
 
 
-
-
 :path_finding_stuff
-    :scan_for_retroarch
-        if exist "%retroarch-exe%" (
-            goto retroarch_scan_done
-        ) else (
-            set "retroarch-exe="
-        )
-        if exist "retroarch.lnk" (
-            set "retroarch-exe=retroarch.lnk"
-        ) else if exist "retroarch.exe" (
-            set "retroarch-exe=retroarch.exe"
-        ) else if exist "retroarch\retroarch.exe" (
-            set "retroarch-exe=retroarch\retroarch.exe"
-        ) else if exist "%PROGRAMFILES%\RetroArch\retroarch.exe" (
-            set "retroarch-exe=%PROGRAMFILES%\RetroArch\retroarch.exe"
-        ) else if exist "%PROGRAMFILES(X86)%\RetroArch\retroarch.exe" (
-            set "retroarch-exe=%PROGRAMFILES(X86)%\RetroArch\retroarch.exe"
-        ) else if exist "%PROGRAMFILES(X86)%\Steam\steamapps\common\RetroArch\retroarch.exe" (
-            set "retroarch-exe=%PROGRAMFILES(X86)%\Steam\steamapps\common\RetroArch\retroarch.exe"
-        ) else if exist "%appdata%\retroarch\retroarch.exe" (
-            set "retroarch-exe=%appdata%\retroarch\retroarch.exe"
-        ) else if exist "G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe" (
-            set "retroarch-exe=G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe"
-        )
-
-        goto check-retroarch-available
-
-    :get_retroarch_dir
-        FOR %%i IN ("%retroarch-exe%") DO set "retroarch-dir=%%~dpi"
-
-        goto %callback%
-
-    :get_retroarch_cores_dir
-        set "retroarch-cores-dir=%retroarch-dir%cores\"
-
-        goto %callback%
-    
     :check_core_available
         @REM Loop through array
         FOR %%i IN (%emu-core%) DO (
@@ -827,9 +790,74 @@ exit
 
 @REM New "functions" as of 0.5-dev folliwing below this line:
 
+
 :echoheader
 mode con cols=50 lines=20
 echo Open with Retroarch
 echo By Maingron - https://maingron.com
 echo --------------------------------------------------
+exit /b %errorlevel%
+
+:getRetroarchExe
+    set "retroarch-exe="
+
+    if exist "retroarch.lnk" (
+        set "retroarch-exe=retroarch.lnk"
+    ) else if exist "retroarch.exe" (
+        set "retroarch-exe=retroarch.exe"
+    ) else if exist "retroarch\retroarch.exe" (
+        set "retroarch-exe=retroarch\retroarch.exe"
+    ) else if exist "%PROGRAMFILES%\RetroArch\retroarch.exe" (
+        set "retroarch-exe=%PROGRAMFILES%\RetroArch\retroarch.exe"
+    ) else if exist "%PROGRAMFILES(X86)%\RetroArch\retroarch.exe" (
+        set "retroarch-exe=%PROGRAMFILES(X86)%\RetroArch\retroarch.exe"
+    ) else if exist "%PROGRAMFILES(X86)%\Steam\steamapps\common\RetroArch\retroarch.exe" (
+        set "retroarch-exe=%PROGRAMFILES(X86)%\Steam\steamapps\common\RetroArch\retroarch.exe"
+    ) else if exist "%appdata%\retroarch\retroarch.exe" (
+        set "retroarch-exe=%appdata%\retroarch\retroarch.exe"
+    ) else if exist "G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe" (
+        set "retroarch-exe=G:\SteamLibrary\steamapps\common\RetroArch\retroarch.exe"
+    )
+
+    set "errorlevel=%retroarch-exe%"
+exit /b %errorlevel%
+
+:getRetroarchDirFromExe
+    set "pathToExe=%1"
+
+    FOR %%i IN (%pathToExe%) DO set "retroarch-dir=%%~dpi"
+    set "errorlevel=%retroarch-dir%"
+exit /b %errorlevel%
+
+:getRetroarchCoreDirFromDir
+    set "retroarchDir=%1"
+
+    set "coreDir=%retroarchDir%cores\"
+
+    set "errorlevel=%coreDir%"
+exit /b %errorlevel%
+
+
+:getPubColor
+    set "publisher=%1"
+
+    set "color=0f"
+
+    if %publisher% == "nintendo" (
+        set "color=40"
+    ) else if %publisher% == "sony" (
+        set "color=30"
+    ) else if %publisher% == "commodore" (
+        set "color=e0"
+    ) else if %publisher% == "sega" (
+        set "color=10"
+    ) else if %publisher% == "atari" (
+        set "color=d0"
+    ) else if %publisher% == "microsoft" (
+        set "color=a0"
+    ) else (
+        set "color=0f"
+    )
+
+    set "errorlevel=%color%"
 exit /b %errorlevel%
