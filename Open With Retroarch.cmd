@@ -9,6 +9,7 @@
 @REM CONFIGURATION:
 set "retroarch-exe=C:\Program Files\RetroArch\retroarch.exe"
 set "additional-parameters="
+call :echoheader
 
 
 goto init
@@ -663,12 +664,6 @@ goto init
         goto run
 
 
-
-
-
-
-
-
 :run
     :run-checks
         goto check-core_set
@@ -685,7 +680,6 @@ goto init
     set "rom-path=%~dp1"
     set "rom-name=%~nx1"
     set "rom-ext=%~x1"
-
     title Open With Retroarch - %rom-name%
 
     goto scan_for_retroarch
@@ -830,3 +824,12 @@ goto init
 
 :eof
 exit
+
+@REM New "functions" as of 0.5-dev folliwing below this line:
+
+:echoheader
+mode con cols=50 lines=20
+echo Open with Retroarch
+echo By Maingron - https://maingron.com
+echo --------------------------------------------------
+exit /b %errorlevel%
