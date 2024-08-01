@@ -222,6 +222,7 @@ goto init
     :.cue
     :.ccd
     :.sbl
+    :.pbp
     :.sub
         set "emu-system=psx"
         set emu-core="pcsx_rearmed" "pcsx" "psx"
