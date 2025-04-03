@@ -179,7 +179,10 @@ goto init
 
     :.nca
     :.nsp
+    :.nsz
     :.xci
+    :.xcz
+    :.ncz
     :.nro
     :.nso
         set "emu-system=switch"
