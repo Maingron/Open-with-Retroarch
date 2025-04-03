@@ -186,7 +186,7 @@ goto init
     :.nro
     :.nso
         set "emu-system=switch"
-        set emu-core="yuzu" "ryujinx"
+        set emu-core="citron" "yuzu" "ryujinx"
 
         set "callback=callback_switch"
         goto check_core_available
