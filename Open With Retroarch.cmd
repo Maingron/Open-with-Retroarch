@@ -60,6 +60,7 @@ goto init
 
     :.gc
     :.gcm
+    :.gci
     :.gcz
     :.rvz
         set "emu-system=gc"
