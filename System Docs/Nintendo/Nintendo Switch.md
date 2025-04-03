@@ -15,6 +15,7 @@ blah blah, Nintendo Switch, we all know and love it, developed by Nintendo, blah
 3. **Citron**
 	- AI says it's not based on / forked from Yuzu, but I think it is.
 	- Bring your own title.keys (and firmware)
+	- https://citronemulator.net
 
 ## Common ROM File Extensions
 - **.XCI**: Cartridge dump format. (Launchable in Emulator, without installing to NAND*)
